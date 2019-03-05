@@ -1,17 +1,18 @@
 public class ElectionResult {
-    double votesDem, votesGop, totalVotes, perDem, perGop, diff, perPointDiff, stateAbbr, countyName, combinedFips;
+    double votesDem, votesGop, totalVotes, perDem, perGop, diff, perPointDiff;
+    String stateAbbr, countyName, combinedFips;
 
-    public ElectionResult(double votesDem, double votesGop, double totalVotes, double perDem, double perGop, double diff, double perPointDiff, double stateAbbr, double countyName, double combinedFips) {
-        this.votesDem = votesDem;
-        this.votesGop = votesGop;
-        this.totalVotes = totalVotes;
-        this.perDem = perDem;
-        this.perGop = perGop;
-        this.diff = diff;
-        this.perPointDiff = perPointDiff;
-        this.stateAbbr = stateAbbr;
-        this.countyName = countyName;
-        this.combinedFips = combinedFips;
+    public ElectionResult(double[] splitDoubleData, String[] stringFile) {
+        this.votesDem = splitDoubleData[0];
+        this.votesGop = splitDoubleData[1];
+        this.totalVotes = splitDoubleData[2];
+        this.perDem = splitDoubleData[3];
+        this.perGop = splitDoubleData[4];
+        this.diff = splitDoubleData[5];
+        this.perPointDiff = splitDoubleData[6];
+        this.stateAbbr = stringFile[0];
+        this.countyName = stringFile[1];
+        this.combinedFips = stringFile[2];
     }
 
     public double getVotesDem() {
@@ -70,27 +71,43 @@ public class ElectionResult {
         this.perPointDiff = perPointDiff;
     }
 
-    public double getStateAbbr() {
+    public String getStateAbbr() {
         return stateAbbr;
     }
 
-    public void setStateAbbr(double stateAbbr) {
+    public void setStateAbbr(String stateAbbr) {
         this.stateAbbr = stateAbbr;
     }
 
-    public double getCountyName() {
+    public String getCountyName() {
         return countyName;
     }
 
-    public void setCountyName(double countyName) {
+    public void setCountyName(String countyName) {
         this.countyName = countyName;
     }
 
-    public double getCombinedFips() {
+    public String getCombinedFips() {
         return combinedFips;
     }
 
-    public void setCombinedFips(double combinedFips) {
+    public void setCombinedFips(String combinedFips) {
         this.combinedFips = combinedFips;
+    }
+
+    @Override
+    public String toString() {
+        return "ElectionResult{" +
+                "votesDem=" + votesDem +
+                ", votesGop=" + votesGop +
+                ", totalVotes=" + totalVotes +
+                ", perDem=" + perDem +
+                ", perGop=" + perGop +
+                ", diff=" + diff +
+                ", perPointDiff=" + perPointDiff +
+                ", stateAbbr=" + stateAbbr +
+                ", countyName=" + countyName +
+                ", combinedFips=" + combinedFips +
+                ")";
     }
 }
