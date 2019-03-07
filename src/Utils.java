@@ -26,13 +26,8 @@ public class Utils {
         String[] splitdata = data.split("\n");
         for (int i = 1; i < splitdata.length; i++) {
             String temp = splitdata[i].replace("%,", ",");
-            System.out.println(temp);
             String newFile = findQuotations(temp);
             String[] splitFile = newFile.split(",");
-            for (int j = 0; j < splitFile.length; j++) {
-                System.out.println(splitFile[j]);
-
-            }
             double[] doubleFile = convertToDouble(splitFile);
             String[] stringfile = addstringFile(splitFile);
             ElectionResult electionData = new ElectionResult(doubleFile, stringfile);

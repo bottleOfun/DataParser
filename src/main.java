@@ -13,7 +13,7 @@ public class main {
         ArrayList<ElectionResult> results = new ArrayList<>();
         results = Utils.parse2016PresidentialResults(data);
         for (int i = 0; i < results.size(); i++) {
-            results.get(i).toString();
+            System.out.println(results.get(i).toString());
         }
     }
 }

@@ -97,17 +97,16 @@ public class ElectionResult {
 
     @Override
     public String toString() {
-        return "ElectionResult{" +
-                "votesDem=" + votesDem +
-                ", votesGop=" + votesGop +
-                ", totalVotes=" + totalVotes +
-                ", perDem=" + perDem +
-                ", perGop=" + perGop +
-                ", diff=" + diff +
-                ", perPointDiff=" + perPointDiff +
-                ", stateAbbr=" + stateAbbr +
-                ", countyName=" + countyName +
-                ", combinedFips=" + combinedFips +
+        return "ElectionResult{ votesDem = " + votesDem +
+                ", votesGop = " + votesGop +
+                ", totalVote = " + totalVotes +
+                ", perDem = " + perDem +
+                ", perGop = " + perGop +
+                ", diff = " + diff +
+                ", perPointDiff = " + perPointDiff +
+                ", stateAbbr = " + stateAbbr +
+                ", countyName = " + countyName +
+                ", combinedFips = " + combinedFips +
                 ")";
     }
 }
