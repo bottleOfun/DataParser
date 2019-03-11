@@ -58,9 +58,9 @@ public class Utils {
             temp = getRidOfSpaces(temp);
             String newFile = findQuotations(temp);
             String[] splitFile = newFile.split(",");
-            String[] stringfile = addstringFile(splitFile);
-            double[] doubleFile = convertToDouble(splitFile, splitFile.length-1);
-            int[] intFile = convertToInt(splitFile, splitFile.length-9, splitFile.length-6);
+            String[] stringfile = addstringFile(splitFile, 3);
+            double[] doubleFile = convertToDouble(splitFile, splitFile.length-7);
+            int[] intFile = convertToInt(splitFile, splitFile.length-10, splitFile.length-7);
             UnemploymentResults unemploymentData = new UnemploymentResults(doubleFile, stringfile, intFile);
             results.add(unemploymentData);
         }
@@ -69,7 +69,7 @@ public class Utils {
 
     private static String getRidOfSpaces(String temp) {
         for (int i = 0; i < temp.length(); i++) {
-             if(temp.substring(i,i+1).equals(" ")){
+             if(temp.substring(i,i+1).equals(" ") || temp.substring(i,i+1).equals("\t")){
                 temp = removeCharAt(temp, i);
                 i=0;
              }
@@ -80,14 +80,17 @@ public class Utils {
     private static int[] convertToInt(String[] splitFile, int start, int end) {
         int[] temp = new int[end-start];
         for (int i = 0; i < end-start; i++) {
-            temp[i] = Integer.parseInt(splitFile[i+start]);
+            if(splitFile[i+start].contains(" ") || splitFile[i+start].contains("\t")){
+                splitFile[i+start] = getRidOfSpaces(splitFile[i+start]);
+            }
+            temp[i] = (int)Double.parseDouble(splitFile[i+start]);
         }
         return temp;
     }
 
-    private static String[] addstringFile(String[] splitFile, int n) {
-        String[] stringFile = new String[n];
-        for (int i = 0; i < n; i++) {
+    private static String[] addstringFile(String[] splitFile, int end) {
+        String[] stringFile = new String[end];
+        for (int i = 0; i < end; i++) {
             if((splitFile[i] != "" || splitFile[i] != null) && splitFile[i].length() > 0) {
                 stringFile[i] = splitFile[i];
             }
