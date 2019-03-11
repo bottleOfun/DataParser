@@ -1,6 +1,6 @@
 public class ElectionResult {
-    double votesDem, votesGop, totalVotes, perDem, perGop, diff, perPointDiff;
-    String stateAbbr, countyName, combinedFips;
+    private double votesDem, votesGop, totalVotes, perDem, perGop, diff, perPointDiff;
+    private String stateAbbr, countyName, combinedFips;
 
     public ElectionResult(double[] splitDoubleData, String[] stringFile) {
         this.votesDem = splitDoubleData[0];
