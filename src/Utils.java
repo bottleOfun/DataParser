@@ -21,6 +21,8 @@ public class Utils {
         return output.toString();
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static ArrayList<ElectionResult> parse2016PresidentialResults(String data) {
         ArrayList<ElectionResult> results = new ArrayList<>();
         String[] splitdata = data.split("\n");
@@ -28,17 +30,19 @@ public class Utils {
             String temp = splitdata[i].replace("%,", ",");
             String newFile = findQuotations(temp);
             String[] splitFile = newFile.split(",");
-            double[] doubleFile = convertToDouble(splitFile);
-            String[] stringfile = addstringFile(splitFile);
-            ElectionResult electionData = new ElectionResult(doubleFile, stringfile);
+            double[] doubleFile = convertToDouble(splitFile, 1, 8);
+            String[] stringFile = addstringFile(splitFile, 8,splitFile.length);
+            ElectionResult electionData = new ElectionResult(doubleFile, stringFile);
             results.add(electionData);
         }
         return results;
     }
+
+
     public static ArrayList<EducationResults> parseEducation(String data) {
         ArrayList<EducationResults> results = new ArrayList<>();
         String[] splitdata = data.split("\n");
-        for (int i = 5; i < splitdata.length-10; i++) {
+        for (int i = 6; i < splitdata.length-10; i++) {
             String[] splitFile = splitdata[i].split(",");
             String[] stringFile = addstringFile(splitFile, 3);
             double[] doubleFile = convertToDouble(splitFile, splitFile.length-4);
@@ -52,7 +56,7 @@ public class Utils {
     public static ArrayList<UnemploymentResults> parseUnemployment(String data) {
         ArrayList<UnemploymentResults> results = new ArrayList<>();
         String[] splitdata = data.split("\n");
-        for (int i = 8; i < splitdata.length; i++) {
+        for (int i = 9; i < splitdata.length; i++) {
             String temp = splitdata[i].replace("%,", ",");
             temp = temp.replace("\"$", "\"");
             temp = getRidOfSpaces(temp);
@@ -66,7 +70,8 @@ public class Utils {
         }
         return results;
     }
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static String getRidOfSpaces(String temp) {
         for (int i = 0; i < temp.length(); i++) {
              if(temp.substring(i,i+1).equals(" ") || temp.substring(i,i+1).equals("\t")){
@@ -76,7 +81,7 @@ public class Utils {
         }
         return temp;
     }
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static int[] convertToInt(String[] splitFile, int start, int end) {
         int[] temp = new int[end-start];
         for (int i = 0; i < end-start; i++) {
@@ -88,16 +93,7 @@ public class Utils {
         return temp;
     }
 
-    private static String[] addstringFile(String[] splitFile, int end) {
-        String[] stringFile = new String[end];
-        for (int i = 0; i < end; i++) {
-            if((splitFile[i] != "" || splitFile[i] != null) && splitFile[i].length() > 0) {
-                stringFile[i] = splitFile[i];
-            }
-        }
-        return stringFile;
-    }
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static double[] convertToDouble(String[] splitFile, int start) {
         int length = splitFile.length-start;
         double[] temp = new double[length];
@@ -109,24 +105,37 @@ public class Utils {
         return temp;
     }
 
-
-    private static String[] addstringFile(String[] splitFile) {
-        String[] stringFile = new String[3];
-        for (int i = 0; i < stringFile.length; i++) {
-            stringFile[i] = splitFile[7+i];
-
-        }
-        return stringFile;
-    }
-
-    private static double[] convertToDouble(String[] splitFile) {
-        double[] temp = new double[splitFile.length];
-        for (int i = 0; i < temp.length-3; i++) {
-            temp[i] = Double.parseDouble(splitFile[i]);
+    private static double[] convertToDouble(String[] splitFile, int start, int end) {
+        int length = end - start;
+        double[] temp = new double[length];
+        for (int i = 0; i < length; i++) {
+            temp[i] = Double.parseDouble(splitFile[i + start]);
         }
         return temp;
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static String[] addstringFile(String[] splitFile, int end) {
+        String[] stringFile = new String[end];
+        for (int i = 0; i < end; i++) {
+            if((splitFile[i] != "" || splitFile[i] != null) && splitFile[i].length() > 0) {
+                stringFile[i] = splitFile[i];
+            }
+        }
+        return stringFile;
+    }
+
+
+    private static String[] addstringFile(String[] splitFile, int start, int end) {
+        String[] stringFile = new String[end-start];
+        for (int i = 0; i < end-start; i++) {
+            stringFile[i] = splitFile[start+i];
+        }
+        return stringFile;
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static String removeQuotations(ArrayList<Integer> quotationList, String file) {
         String newFile = file;
         String temp = newFile.substring(quotationList.get(0), quotationList.get(1)+1);
@@ -161,6 +170,7 @@ public class Utils {
         return file;
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static String removeCharAt(String str, Integer n){
         String front = str.substring(0,n);
         String back = str.substring(n+1);

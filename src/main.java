@@ -1,5 +1,3 @@
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.util.ArrayList;
 
 /***
@@ -10,11 +8,10 @@ public class main {
     public static void main(String[] args) {
         // Test of utils
 
-        String data = Utils.readFileAsString("C:\\Users\\Ben\\IdeaProjects\\DataParser\\data\\2016_Presidential_Results.csv");
-        String data2 = Utils.readFileAsString("C:\\Users\\Ben\\IdeaProjects\\DataParser\\data\\Education.csv");
-        String data3 = Utils.readFileAsString("C:\\Users\\Ben\\IdeaProjects\\DataParser\\data\\Unemployment.csv");
+        String data = Utils.readFileAsString("C:\\Users\\bdu698\\IdeaProjects\\DataParser\\data\\2016_Presidential_Results.csv");
+        String data2 = Utils.readFileAsString("C:\\Users\\bdu698\\IdeaProjects\\DataParser\\data\\Education.csv");
+        String data3 = Utils.readFileAsString("C:\\Users\\bdu698\\IdeaProjects\\DataParser\\data\\Unemployment.csv");
 //        System.out.println(data);
-
 //        System.out.println("Election data");
         ArrayList<ElectionResult> results;
         results = Utils.parse2016PresidentialResults(data);
@@ -38,34 +35,37 @@ public class main {
 //            System.out.println(results3.get(i).toString());
 //        }
 
-        ArrayList<State> states = putTogetherData(results, results2, results3);
+        ArrayList<State> states = getAllStates(results, results2, results3);
+        ArrayList<County>
         DataManager allData = new DataManager();
         allData.setStates(states);
+
         for (int i = 0; i < allData.getStates().size(); i++) {
             System.out.println(allData.getStates().get(i).getName());
-
         }
     }
 
-    private static ArrayList<State> putTogetherData(ArrayList<ElectionResult> results, ArrayList<EducationResults> results2, ArrayList<UnemploymentResults> results3) {
+    private static ArrayList<State> getAllStates(ArrayList<ElectionResult> results, ArrayList<EducationResults> results2, ArrayList<UnemploymentResults> results3) {
         ArrayList<State> states = new ArrayList<>();
-        //TODO Finish the outOFMemory error and finish adding data to the DataManager.
-        for (int i = 0; i < results.size(); i++) {
-            if(states.size() == 0) {
-                ArrayList<County> counties = new ArrayList<>();
-                states.add(new State(results.get(i).getStateAbbr(), counties));
-            }
-            if(states.size() > 0 ){
-                for (int j = 0; j < states.size(); j++) {
-                    if(!(states.get(j).getName().equals(results.get(i).getStateAbbr()))) {
-                        ArrayList<County> counties = new ArrayList<>();
-                        states.add(new State(results.get(i).getStateAbbr(), counties));
-                    }
-                }
-            }
+        ArrayList<String> names = getStateNames(results);
+        //TODO Finish adding data to the DataManager.
+
+        for (int i = 0; i < names.size(); i++) {
+            ArrayList<County> counties = new ArrayList<>();
+            states.add(new State(names.get(i), counties));
         }
 
         return states;
+    }
+
+    private static ArrayList<String> getStateNames(ArrayList<ElectionResult> results) {
+        ArrayList<String> stateNames =  new ArrayList<>();
+        for (int i = 0; i < results.size(); i++) {
+            if(!(stateNames.contains(results.get(i).getStateAbbr()))){
+                stateNames.add(results.get(i).getStateAbbr());
+            }
+        }
+        return stateNames;
     }
 
 }
