@@ -36,22 +36,79 @@ public class main {
 //        }
 
         ArrayList<State> states = getAllStates(results, results2, results3);
-        ArrayList<County>
         DataManager allData = new DataManager();
         allData.setStates(states);
-
         for (int i = 0; i < allData.getStates().size(); i++) {
             System.out.println(allData.getStates().get(i).getName());
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private static ArrayList<County> getAllCounties(ArrayList<ElectionResult> results, ArrayList<EducationResults> results2, ArrayList<UnemploymentResults> results3) {
+        ArrayList<County> counties = new ArrayList<>();
+        ArrayList<String> names = getCountyNames(results);
+        ArrayList<Integer> fips = getFipNumbers(results);
+        ArrayList<Election2016> election2016Data = getElection2016Data(results);
+        ArrayList<Education2016> education2016Data = getEducation2016Data(results2);
+        ArrayList<Employment2016> employment2016Data = getEmployment2016Data(results3);
+        for (int i = 0; i < names.size(); i++) {
+            counties.add(new County(names.get(i), fips.get(i), election2016Data.get(i), education2016Data.get(i), employment2016Data.get(i)));
+        }
+        return counties;
+    }
+
+    private static ArrayList<String> getCountyNames(ArrayList<ElectionResult> results) {
+        ArrayList<String> names = new ArrayList<>();
+        for (int i = 0; i < results.size(); i++) {
+             names.add(results.get(i).getCountyName());
+        }
+        return names;
+    }
+
+    private static ArrayList<Integer> getFipNumbers(ArrayList<ElectionResult> results) {
+        ArrayList<Integer> fips = new ArrayList<>();
+        for (int i = 0; i < results.size(); i++) {
+            fips.add(Integer.parseInt(results.get(i).getCombinedFips()));
+        }
+        return fips;
+    }
+
+    private static ArrayList<Election2016> getElection2016Data(ArrayList<ElectionResult> results) {
+        ArrayList<Election2016> election2016Data = new ArrayList<>();
+        for (int i = 0; i < results.size(); i++) {
+
+
+        }
+        return election2016Data;
+    }
+
+    private static ArrayList<Education2016> getEducation2016Data(ArrayList<EducationResults> results2) {
+        ArrayList<Education2016> education2016Data = new ArrayList<>();
+        for (int i = 0; i < results2.size(); i++) {
+
+
+        }
+        return education2016Data;
+    }
+    
+    private static ArrayList<Employment2016> getEmployment2016Data(ArrayList<UnemploymentResults> results3) {
+        ArrayList<Employment2016> employment2016Data = new ArrayList<>();
+        for (int i = 0; i < results3.size(); i++) {
+
+
+        }
+        return employment2016Data;
+    }
+
+
     private static ArrayList<State> getAllStates(ArrayList<ElectionResult> results, ArrayList<EducationResults> results2, ArrayList<UnemploymentResults> results3) {
         ArrayList<State> states = new ArrayList<>();
         ArrayList<String> names = getStateNames(results);
+        ArrayList<County> counties = getAllCounties(results, results2,results3);
         //TODO Finish adding data to the DataManager.
 
         for (int i = 0; i < names.size(); i++) {
-            ArrayList<County> counties = new ArrayList<>();
             states.add(new State(names.get(i), counties));
         }
 
