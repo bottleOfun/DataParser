@@ -52,8 +52,40 @@ public class Utils {
         return results;
     }
 
+    public static ArrayList<EducationResults> parseEducationV2(String data) {
+        ArrayList<EducationResults> results = new ArrayList<>();
+        String[] splitdata = data.split("\n");
+        for (int i = 1; i < splitdata.length; i++) {
+            String newFile = findQuotations(splitdata[i]);
+            String[] splitFile = newFile.split(",");
+            String[] stringFile = addstringFile(splitFile, 1);
+            double[] doubleFile = convertToDouble(splitFile, 1);
+            EducationResults educationData = new EducationResults(doubleFile, stringFile);
+            results.add(educationData);
+        }
+        return results;
+    }
+
 
     public static ArrayList<UnemploymentResults> parseUnemployment(String data) {
+        ArrayList<UnemploymentResults> results = new ArrayList<>();
+        String[] splitdata = data.split("\n");
+        for (int i = 9; i < splitdata.length; i++) {
+            String temp = splitdata[i].replace("%,", ",");
+            temp = temp.replace("\"$", "\"");
+            temp = getRidOfSpaces(temp);
+            String newFile = findQuotations(temp);
+            String[] splitFile = newFile.split(",");
+            String[] stringfile = addstringFile(splitFile, 3);
+            double[] doubleFile = convertToDouble(splitFile, splitFile.length-7);
+            int[] intFile = convertToInt(splitFile, splitFile.length-10, splitFile.length-7);
+            UnemploymentResults unemploymentData = new UnemploymentResults(doubleFile, stringfile, intFile);
+            results.add(unemploymentData);
+        }
+        return results;
+    }
+
+    public static ArrayList<UnemploymentResults> parseUnemploymentV2(String data) {
         ArrayList<UnemploymentResults> results = new ArrayList<>();
         String[] splitdata = data.split("\n");
         for (int i = 9; i < splitdata.length; i++) {
@@ -98,7 +130,7 @@ public class Utils {
         int length = splitFile.length-start;
         double[] temp = new double[length];
         for (int i = 0; i < splitFile.length-start; i++) {
-            if((splitFile[i+start] != "" || splitFile[i+start] != null) && splitFile[i+start].length() > 0) {
+            if(( splitFile[i+start] != null) && splitFile[i+start].length() > 0) {
                 temp[i] = Double.parseDouble(splitFile[i + start]);
             }
         }

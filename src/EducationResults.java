@@ -1,24 +1,19 @@
 public class EducationResults {
     //first 3 and last 4 of the data is what we need.
-    private String fipsCode,state,areaName;
-    private double lessThanHighSchoolDiploma2016, highSchoolDiplomaOnly2016, someCollege2016, BachelorsOrHigher016;
+    private String state;
+    private double lessThanHighSchoolDiploma2016, highSchoolDiplomaOnly2016, someCollege2016, BachelorsOrHigher016, percentOfAdultsLessThanHighSchool2016,
+            percentOfAdultsWithHighSchoolDiploma2016, percentOfAdultsSomeCollegeOrAssociate2016, percentOfAdultsBackelorsOrHigher2016;
 
     public EducationResults(double[] splitDoubleData, String[] stringFile) {
-        this.fipsCode = stringFile[0];
-        this.state = stringFile[1];
-        this.areaName = stringFile[2];
+        this.state = stringFile[0];
         this.lessThanHighSchoolDiploma2016 = splitDoubleData[0];
         this.highSchoolDiplomaOnly2016 = splitDoubleData[1];
         this.someCollege2016 = splitDoubleData[2];
         this.BachelorsOrHigher016 = splitDoubleData[3];
-    }
-
-    public String getFipsCode() {
-        return fipsCode;
-    }
-
-    public void setFipsCode(String fipsCode) {
-        this.fipsCode = fipsCode;
+        this.percentOfAdultsLessThanHighSchool2016 = splitDoubleData[4];
+        this.percentOfAdultsWithHighSchoolDiploma2016 = splitDoubleData[5];
+        this.percentOfAdultsSomeCollegeOrAssociate2016 = splitDoubleData[6];
+        this.percentOfAdultsBackelorsOrHigher2016 = splitDoubleData[7];
     }
 
     public String getState() {
@@ -27,14 +22,6 @@ public class EducationResults {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public String getAreaName() {
-        return areaName;
-    }
-
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
     }
 
     public double getLessThanHighSchoolDiploma2016() {
@@ -69,15 +56,50 @@ public class EducationResults {
         BachelorsOrHigher016 = bachelorsOrHigher016;
     }
 
+    public double getPercentOfAdultsLessThanHighSchool2016() {
+        return percentOfAdultsLessThanHighSchool2016;
+    }
+
+    public void setPercentOfAdultsLessThanHighSchool2016(double percentOfAdultsLessThanHighSchool2016) {
+        this.percentOfAdultsLessThanHighSchool2016 = percentOfAdultsLessThanHighSchool2016;
+    }
+
+    public double getPercentOfAdultsWithHighSchoolDiploma2016() {
+        return percentOfAdultsWithHighSchoolDiploma2016;
+    }
+
+    public void setPercentOfAdultsWithHighSchoolDiploma2016(double percentOfAdultsWithHighSchoolDiploma2016) {
+        this.percentOfAdultsWithHighSchoolDiploma2016 = percentOfAdultsWithHighSchoolDiploma2016;
+    }
+
+    public double getPercentOfAdultsSomeCollegeOrAssociate2016() {
+        return percentOfAdultsSomeCollegeOrAssociate2016;
+    }
+
+    public void setPercentOfAdultsSomeCollegeOrAssociate2016(double percentOfAdultsSomeCollegeOrAssociate2016) {
+        this.percentOfAdultsSomeCollegeOrAssociate2016 = percentOfAdultsSomeCollegeOrAssociate2016;
+    }
+
+    public double getPercentOfAdultsBackelorsOrHigher2016() {
+        return percentOfAdultsBackelorsOrHigher2016;
+    }
+
+    public void setPercentOfAdultsBackelorsOrHigher2016(double percentOfAdultsBackelorsOrHigher2016) {
+        this.percentOfAdultsBackelorsOrHigher2016 = percentOfAdultsBackelorsOrHigher2016;
+    }
+
+    @Override
     public String toString() {
         return "EducationResults{" +
-                "fipsCode='" + fipsCode + '\'' +
-                ", state='" + state + '\'' +
-                ", areaName='" + areaName + '\'' +
+                "state='" + state + '\'' +
                 ", lessThanHighSchoolDiploma2016=" + lessThanHighSchoolDiploma2016 +
                 ", highSchoolDiplomaOnly2016=" + highSchoolDiplomaOnly2016 +
                 ", someCollege2016=" + someCollege2016 +
                 ", BachelorsOrHigher016=" + BachelorsOrHigher016 +
+                ", percentOfAdultsLessThanHighSchool2016=" + percentOfAdultsLessThanHighSchool2016 +
+                ", percentOfAdultsWithHighSchoolDiploma2016=" + percentOfAdultsWithHighSchoolDiploma2016 +
+                ", percentOfAdultsSomeCollegeOrAssociate2016=" + percentOfAdultsSomeCollegeOrAssociate2016 +
+                ", percentOfAdultsBackelorsOrHigher2016=" + percentOfAdultsBackelorsOrHigher2016 +
                 '}';
     }
 }
