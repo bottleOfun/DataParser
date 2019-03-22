@@ -23,17 +23,17 @@ public class main {
 //        System.out.println("//////////////////////////////////////////////////////////////////////");
         ArrayList<EducationResults> results2;
         results2 = Utils.parseEducationV2(data2);
-        for (int i = 0; i < results2.size(); i++) {
-            System.out.println(results2.get(i).toString());
-        }
+//        for (int i = 0; i < results2.size(); i++) {
+//            System.out.println(results2.get(i).toString());
+//        }
 
 //        System.out.println("Unemployment data");
 //        System.out.println("//////////////////////////////////////////////////////////////////////");
         ArrayList<UnemploymentResults> results3;
         results3 = Utils.parseUnemploymentV2(data3);
-//        for (int i = 0; i < results3.size(); i++) {
-//            System.out.println(results3.get(i).toString());
-//        }
+        for (int i = 0; i < results3.size(); i++) {
+            System.out.println(results3.get(i).toString());
+        }
 
 //        ArrayList<State> states = getAllStates(results, results2, results3);
 //        DataManager allData = new DataManager();

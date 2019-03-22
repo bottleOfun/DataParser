@@ -79,8 +79,8 @@ public class Utils {
             String[] stringfile = addstringFile(splitFile, 3);
             double[] doubleFile = convertToDouble(splitFile, splitFile.length-7);
             int[] intFile = convertToInt(splitFile, splitFile.length-10, splitFile.length-7);
-            UnemploymentResults unemploymentData = new UnemploymentResults(doubleFile, stringfile, intFile);
-            results.add(unemploymentData);
+            //UnemploymentResults unemploymentData = new UnemploymentResults(doubleFile, stringfile, intFile);
+            //results.add(unemploymentData);
         }
         return results;
     }
@@ -88,16 +88,16 @@ public class Utils {
     public static ArrayList<UnemploymentResults> parseUnemploymentV2(String data) {
         ArrayList<UnemploymentResults> results = new ArrayList<>();
         String[] splitdata = data.split("\n");
-        for (int i = 9; i < splitdata.length; i++) {
+        for (int i = 1; i < splitdata.length; i++) {
             String temp = splitdata[i].replace("%,", ",");
             temp = temp.replace("\"$", "\"");
             temp = getRidOfSpaces(temp);
             String newFile = findQuotations(temp);
             String[] splitFile = newFile.split(",");
-            String[] stringfile = addstringFile(splitFile, 3);
-            double[] doubleFile = convertToDouble(splitFile, splitFile.length-7);
-            int[] intFile = convertToInt(splitFile, splitFile.length-10, splitFile.length-7);
-            UnemploymentResults unemploymentData = new UnemploymentResults(doubleFile, stringfile, intFile);
+            String[] stringfile = addstringFile(splitFile, 1);
+            double[] doubleFile = convertToDouble(splitFile, 1);
+            //int[] intFile = convertToInt(splitFile, splitFile.length-10, splitFile.length-7);
+            UnemploymentResults unemploymentData = new UnemploymentResults(doubleFile, stringfile);
             results.add(unemploymentData);
         }
         return results;
@@ -127,12 +127,11 @@ public class Utils {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static double[] convertToDouble(String[] splitFile, int start) {
-        int length = splitFile.length-start;
+        int length = splitFile.length;
         double[] temp = new double[length];
-        for (int i = 0; i < splitFile.length-start; i++) {
-            if(( splitFile[i+start] != null) && splitFile[i+start].length() > 0) {
-                temp[i] = Double.parseDouble(splitFile[i + start]);
-            }
+        for (int i = start; i < splitFile.length; i++) {
+                temp[i-start] = Double.parseDouble(splitFile[i]);
+
         }
         return temp;
     }
